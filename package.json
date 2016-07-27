@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js --exec babel-node --presets es2015"
+    "start": "nodemon srv/app.js --exec babel-node --presets es2015",
+    "build": "babel srv -d dist --presets es2015",
+    "serve": "node dist/app.js"
   },
   "repository": {
     "type": "git",
