@@ -1,33 +1,15 @@
 import express from 'express';
-import Raspicam from 'raspicam';
+import router from './routes/main.routes'
+import path from 'path';
 
 const app = express();
-const port = 3000;
 
-let fileURI;
+app.use('/', router);
+app.use(express.static(path.join(__dirname, '/public')));
 
-const writePath = (mode) => {
-    let uniqId = Date.now().toString();
-    let path = `/work/raspicam/data/${mode}s/raspi-${uniqId}`;
-    fileURI = `${path}.jpg`;
-    return path;
-};
-
-app.get('/', (req, res) => {
-    try {
-        let camera = new Raspicam({
-            mode: 'photo',
-            output: writePath('photo')
-        });
-        camera.start();
-        console.log(`camera take photo at ${ Date.now().toString() }.`);
-        res.send(fileURI);
-    } catch (error) {
-        console.error(error);
-        res.json(error);
-    }
+const srv = app.listen(3000, () => {
+    const {address, port} = srv.address();
+    console.log(`App listening at http://${address}:${port}`);
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${ port.toString() }!`);
-});
+export default app;
