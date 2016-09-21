@@ -1,2 +1,2 @@
 # raspicam
-Web application that control raspberry pi camera module
+Web application connected to raspberry pi camera module

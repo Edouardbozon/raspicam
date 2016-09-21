@@ -10,7 +10,8 @@ router.use((req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-    res.sendFile(path.resolve('srv/public', 'index.html'));
+    res.send({success: 'request succeded'});
+    
 });
 
 export default router;
