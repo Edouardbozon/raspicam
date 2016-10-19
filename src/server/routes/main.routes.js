@@ -9,9 +9,13 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../', '../', 'client', 'index.html'));
+router.get('/api', (req, res) => {
+    res.send({data: 'hello world'})
     console.log('hello')
+});
+
+router.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../', '../', 'client', 'index.html'));
 });
 
 export default router;
