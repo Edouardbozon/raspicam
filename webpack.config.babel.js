@@ -15,7 +15,7 @@ const webpackConfig = {
         color: true
     },
     resolve: {
-		extensions: ['', '.js', '.jsx']
+		extensions: ['', '.js']
 	}
 };
 
@@ -23,9 +23,7 @@ const webpackConfig = {
  * Application entries
  */
 webpackConfig.entry = [
-    `webpack-dev-server/client?http://${HOST}:${PORT}`,
-    `webpack/hot/only-dev-server`,
-    `./src/client/index.jsx` // Your appʼs entry point
+    path.resolve(__dirname, 'src', 'client', 'app.js') // Front app entry point
 ]
 
 /**
@@ -36,21 +34,21 @@ webpackConfig.output = {
   filename: 'bundle.js'
 };
 
-webpackConfig.module = {
-    devServer: {
-		contentBase: './dist',
-        // do not print bundle build stats
-		noInfo: true,
-		// enable HMR
-		hot: true,
-		// embed the webpack-dev-server runtime into the bundle
-		inline: true,
-		// serve index.html in place of 404 responses to allow HTML5 history
-		historyApiFallback: true,
-		port: PORT,
-		host: HOST
-	}
-};
+// webpackConfig.module = {
+//     devServer: {
+// 		contentBase: './dist',
+//         // do not print bundle build stats
+// 		noInfo: true,
+// 		// enable HMR
+// 		hot: true,
+// 		// embed the webpack-dev-server runtime into the bundle
+// 		inline: true,
+// 		// serve index.html in place of 404 responses to allow HTML5 history
+// 		historyApiFallback: true,
+// 		port: PORT,
+// 		host: HOST
+// 	}
+// };
 
 /**
  * Pré-loaders
@@ -67,13 +65,8 @@ webpackConfig.module.preLoaders = [
  * Loaders
  */
 webpackConfig.module.loaders = [
-    {
-		test: /\.jsx?$/,
-		exclude: /(node_modules|bower_components|dist)/,
-		loaders: ['react-hot']
-	},
 	{
-		test: /\.jsx?$/,
+		test: /\.js?$/,
 		exclude: /(node_modules|bower_components|dist)/,
 		loader: 'babel',
 		query: {
@@ -107,8 +100,7 @@ webpackConfig.plugins = [
     new ExtractTextPlugin('css/[name].css'),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'src', 'client', 'template.html'),
-        title: 'Webpack App'
+        template: path.join(__dirname, 'src', 'client', 'index.html')
     })
 ];
 

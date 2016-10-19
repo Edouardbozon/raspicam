@@ -6,7 +6,8 @@
   "scripts": {
     "test": "eslint --ext js --ext jsx src || exit 0",
     "nodemon": "nodemon src/server/app.js --exec babel-node --presets es2015",
-    "build": "babel srv -d dist --presets es2015",
+    "build:dev": "webpack -d --progress --watch",
+    "build:prod": "webpack -p",
     "start": "webpack-dev-server --progress --profile --colors",
     "lint": "eslint --ext js --ext jsx src || exit 0"
   },

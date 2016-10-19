@@ -2,13 +2,14 @@ import express from 'express';
 import path from 'path';
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
-import router from './routes/main.routes'
-import './dist/'
+import router from './routes/main.routes';
 
 const app = express();
 
+const frontApp = path.resolve(__dirname, '../', '../', 'dist');
+
 app.use('/', router);
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(frontApp));
 
 const srv = app.listen(3000, () => {
     const {address, port} = srv.address();

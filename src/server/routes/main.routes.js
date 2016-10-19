@@ -9,9 +9,9 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/', (req, res) => {
-    res.send({success: 'request succeded'});
-    
+router.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../', '../', 'client', 'index.html'));
+    console.log('hello')
 });
 
 export default router;
