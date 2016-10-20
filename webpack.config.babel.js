@@ -16,7 +16,11 @@ const webpackConfig = {
     },
     resolve: {
 		extensions: ['', '.js']
-	}
+	},
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
+    },
 };
 
 /**

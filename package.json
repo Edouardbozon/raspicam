@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Edouardbozon/raspicam#readme",
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-socket-io": "^0.7.0",
     "babel-polyfill": "^6.13.0",
     "babel-register": "^6.14.0",
     "babel-runtime": "^6.11.6",
