@@ -4,6 +4,7 @@ import autoprefixer from 'autoprefixer';
 import webpack from 'webpack';
 import precss from 'precss';
 import path from 'path';
+import ngAnnotate from 'ng-annotate-loader';
 
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8080";
@@ -61,7 +62,7 @@ webpackConfig.module.preLoaders = [
     {
         test: /\.js$/, 
         loader: "eslint-loader", 
-        exclude: /node_modules/
+        exclude: /(node_modules|dist)/
     }
 ];
 
@@ -69,15 +70,22 @@ webpackConfig.module.preLoaders = [
  * Loaders
  */
 webpackConfig.module.loaders = [
+    // JavaScripts
 	{
 		test: /\.js?$/,
-		exclude: /(node_modules|bower_components|dist)/,
+		exclude: /(node_modules|dist)/,
 		loader: 'babel',
 		query: {
 		  presets: ['es2015'],
 		  plugins: ['transform-runtime', 'transform-decorators-legacy', 'transform-class-properties'],
 		}
 	},
+    // ng-Annotate
+    {
+        test: /.js$/,
+        loader: 'ng-annotate',
+        exclude: /(node_modules|dist)/
+    },
     // SASS preprocess & postprocess
     {
         test: /\.scss$/,

@@ -23,13 +23,17 @@
   "homepage": "https://github.com/Edouardbozon/raspicam#readme",
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-material": "^1.1.1",
     "angular-socket-io": "^0.7.0",
     "babel-polyfill": "^6.13.0",
     "babel-register": "^6.14.0",
     "babel-runtime": "^6.11.6",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
-    "raspicam": "^0.2.13"
+    "raspicam": "^0.2.13",
+    "socket.io-client": "^1.5.0"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
@@ -48,6 +52,7 @@
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.22.0",
+    "ng-annotate-loader": "^0.2.0",
     "node-sass": "^3.4.2",
     "nodemon": "^1.10.0",
     "postcss": "^5.0.19",

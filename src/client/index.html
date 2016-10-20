@@ -8,7 +8,12 @@
 <body ng-app="Raspicam">
   <div class="container">
     <div id="app" ng-controller="mainController as main">
-        Loading...
+        <div ng-if="!main.isConnected()">
+          Loading...
+        </div>
+        <div content>
+
+        </div>
     </div>
   </div>
   <script type="text/javascript" src="bundle.js"></script>

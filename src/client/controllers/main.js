@@ -1,6 +1,11 @@
 export default class mainController {
-    constructor() {
+    constructor(Socket) {
         'ngInject';
-        console.log('Hello world!')
+        this.Socket = Socket;
+        this.currentPage = 'home';
+    }
+
+    isConnected(){
+        return this.Socket.isConnected;
     }
 }
