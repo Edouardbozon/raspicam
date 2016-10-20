@@ -70,7 +70,7 @@ webpackConfig.module.loaders = [
 		exclude: /(node_modules|bower_components|dist)/,
 		loader: 'babel',
 		query: {
-		  presets: ['es2015', 'react'],
+		  presets: ['es2015'],
 		  plugins: ['transform-runtime', 'transform-decorators-legacy', 'transform-class-properties'],
 		}
 	},
@@ -98,10 +98,10 @@ webpackConfig.module.loaders = [
  */
 webpackConfig.plugins = [
     new ExtractTextPlugin('css/[name].css'),
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'src', 'client', 'index.html')
-    })
+    // new webpack.HotModuleReplacementPlugin(),
+    // new HtmlWebpackPlugin({
+    //     template: path.join(__dirname, 'src', 'client', 'index.html')
+    // })
 ];
 
 /**
