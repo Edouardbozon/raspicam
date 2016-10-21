@@ -1,3 +1,6 @@
+import './assets/sass/main';
+import 'angular-material/angular-material.scss';
+
 import angular from 'angular';
 
 import 'angular-socket-io';

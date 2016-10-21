@@ -16,7 +16,7 @@ const webpackConfig = {
         color: true
     },
     resolve: {
-		extensions: ['', '.js']
+		extensions: ['', '.js', '.scss']
 	},
     watchOptions: {
         aggregateTimeout: 300,
