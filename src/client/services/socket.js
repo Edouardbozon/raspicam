@@ -3,24 +3,26 @@ import { ADDRESS, PORT } from '../../server/config';
 
 export default class Socket {
 
-    constructor($q, $log, $rootScope) {
+    constructor($q, $log, $rootScope, $httpParamSerializer) {
         'ngInject';
 
         this.$q = $q;
         this.$log = $log;
         this.$rootScope = $rootScope;
+        this.$httpParamSerializer = $httpParamSerializer;
 
         this.data = {
             isConnected: false,
-            currentUser: {},
+            user: {},
             users: []
         };
     }
 
-    connect(currentUser) {
+    connect(user) {
         this.socket = io(ADDRESS + ':' + PORT, {
-            query: `name=${currentUser.name}&email=${currentUser.email}&preference=${currentUser.preference}`
+            query: this.$httpParamSerializer(user)
         });
+        this.data.user = user;
         this.data.isConnected = true;
 
         return this.bindSocketEvents();

@@ -9,6 +9,7 @@
     "build:dev": "webpack -d --progress --watch",
     "build:prod": "webpack -p",
     "start": "webpack-dev-server --progress --profile --colors",
+    "watch": "concurrently \"webpack -d --progress --watch\" \"nodemon src/server/app.js --exec babel-node --presets es2015\" --kill-others",
     "lint": "eslint --ext js --ext src || exit 0"
   },
   "repository": {
@@ -45,6 +46,7 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "6.5.0",
+    "concurrently": "^3.1.0",
     "css-loader": "^0.25.0",
     "eslint": "^3.1.1",
     "eslint-loader": "^1.5.0",

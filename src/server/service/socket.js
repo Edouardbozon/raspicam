@@ -9,11 +9,13 @@ export default class SocketService {
 
     connection(socket) {
 
+        // for (let variable in socket.handshake.query) {
+            console.log(socket.handshake.query);
+        // }
         const currentUser = {
             id: socket.id,
-            name: socket.handshake.query.name,
-            email: socket.handshake.query.email,
-            preference: socket.handshake.query.preference
+            tag: socket.handshake.query.tag,
+            type: socket.handshake.query.type
         };
 
         // this.sockets.push(socket); // store current socket with user.id key

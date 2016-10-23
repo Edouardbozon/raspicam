@@ -5,15 +5,14 @@ export default class mainController {
         this.Socket = Socket;
         this.$scope = $scope;
 
-        this.currentUser = {
+        this.user = { // user's given informations
             id: null,
-            name: null,
-            email: null,
-            preference: null
+            tag: null,
+            type: null
         };
+        this.types = ['friend', 'voyerist', 'psychopath', 'criminal']; // user types
 
-        this.users = this.Socket.data.users;
-        this.preferences = ['Bacon', 'Falafel', 'Eggs', 'Porridge'];
+        this.users = this.Socket.data.users; // live users
         this.$scope.$on('$destroy', this.disconnect.bind(this));
     }
 
@@ -22,7 +21,7 @@ export default class mainController {
     }
 
     connect() {
-        return this.Socket.connect(this.currentUser);
+        return this.Socket.connect(this.user);
     }
 
     disconnect() {

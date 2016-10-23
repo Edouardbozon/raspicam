@@ -17,7 +17,7 @@
                     <md-menu-content width="6">
                         <md-menu-item>
                             <md-button class="md-button" aria-label="Users View">
-                            Users
+                            Viewers
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
@@ -38,27 +38,22 @@
                 <md-card flex>
                     <md-card-title>
                           <md-card-title-text>
-                            <span class="md-headline">Join us my men</span>
-                            <span class="md-subhead"> I promess you I do not use your data maliciously &lt;3</span>
+                            <span class="md-headline">Join the stream bro</span>
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
                         <form layout="column" name="login">
                             <md-input-container>
                                 <label>tag</label>
-                                <input ng-model="main.currentUser.name" type="text" minlength="4" required>
+                                <input ng-model="main.user.tag" type="text" minlength="3" required>
                             </md-input-container>
                             <md-input-container>
-                                <label>email</label>
-                                <input ng-model="main.currentUser.email" type="email" required>
-                            </md-input-container>
-                            <md-input-container>
-                                <label>I prefer</label>
-                                <md-select ng-model="main.currentUser.preference" required>
+                                <label>I'm a</label>
+                                <md-select ng-model="main.user.type" required>
                                     <md-option
-                                        ng-repeat="preference in main.preferences track by $index"
-                                        ng-value="preference">
-                                        {{  preference }}
+                                        ng-repeat="type in main.types track by $index"
+                                        ng-value="type">
+                                        {{ type }}
                                     </md-option>
                                 </md-select>
                             </md-input-container>
@@ -71,15 +66,14 @@
             </section>
             <md-list flex ng-if="main.isConnected()">
                 <md-subheader class="md-no-sticky">
-                    <strong>{{ main.users.length }} connected users</strong>
+                    <strong>{{ main.users.length }} viewers</strong>
                 </md-subheader>
+                <md-divider></md-divider>
                 <md-list-item class="md-3-line" ng-repeat="user in main.users" ng-click="null">
                     <div class="md-list-item-text" layout="column">
-                        <strong>{{ user.name }}</strong>
-                        <p>{{ user.email }}</p>
-                        <p>He loves <strong>{{ user.preference | lowercase }}</strong></p>
+                        <h3>{{ user.tag }}</h3>
+                        <p>{{ user.type | lowercase }}</p>
                     </div>
-                    <md-divider ></md-divider>
                 </md-list-item>
             </md-list>
         </md-content>
