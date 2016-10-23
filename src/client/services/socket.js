@@ -17,9 +17,9 @@ export default class Socket {
         };
     }
 
-    connect(name = 'User_' + Date.now()) {
+    connect(currentUser) {
         this.socket = io(ADDRESS + ':' + PORT, {
-            query: `name=${name}`
+            query: `name=${currentUser.name}&email=${currentUser.email}&preference=${currentUser.preference}`
         });
         this.data.isConnected = true;
 
@@ -51,7 +51,7 @@ export default class Socket {
     }
 
     ontUserDisconnect(req) {
-        if (angular.isDefined(req.user.id)) {                
+        if (angular.isDefined(req.user.id)) {
             this.$log.info('[INFO] User ' + req.user.name + ' left');
             for (let i = 0, ii = this.data.users.length; i < ii; i++) {
                 if (this.data.users[i].id === req.user.id) {

@@ -8,12 +8,15 @@ export default class SocketService {
     }
 
     connection(socket) {
+
         const currentUser = {
             id: socket.id,
-            name: socket.handshake.query.name
+            name: socket.handshake.query.name,
+            email: socket.handshake.query.email,
+            preference: socket.handshake.query.preference
         };
 
-        this.sockets.push(socket); // store current socket with user.id key
+        // this.sockets.push(socket); // store current socket with user.id key
         this.users.push(currentUser);
 
         this.bindSocketEvents(socket, currentUser);
@@ -25,24 +28,17 @@ export default class SocketService {
     }
 
     bindSocketEvents(socket, currentUser) {
-        this.io.emit('user:connect', { user: currentUser }); // send new User data to all connected users
-        socket.emit('users:list', { users: this.users }); // send all users data to current user
+        socket.broadcast.emit('user:connect', { user: currentUser }); // send new connected user data to all connected users except sender
+        socket.emit('users:list', { users: this.users }); // send connected users list to new user
     }
 
     onDisconnect(socket, currentUser) {
         socket.on('disconnect', () => {
-            this.io.emit('user:disconnect', { user: currentUser });
-            this.sockets.filter((filteredSocket) => { // clear socket
-                if (filteredSocket.id === socket.id) {
-                    return false;
+            this.io.emit('user:disconnect', { user: currentUser }); // emit user deconnection to each connected user
+            this.users.forEach((user, i) => { // clear disconncted user
+                if (user.id === currentUser.id) {
+                    this.users.splice(i, 1);
                 }
-                return true;
-            });
-            this.users.filter((filteredUser) => { // clear user
-                if (filteredUser.id === currentUser.id) {
-                    return false;
-                }
-                return true;
             });
             console.log(`
                 ------------------- [INFO] --------------------

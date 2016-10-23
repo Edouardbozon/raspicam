@@ -5,8 +5,15 @@ export default class mainController {
         this.Socket = Socket;
         this.$scope = $scope;
 
-        // this.Socket.connect();
+        this.currentUser = {
+            id: null,
+            name: null,
+            email: null,
+            preference: null
+        };
+
         this.users = this.Socket.data.users;
+        this.preferences = ['Bacon', 'Falafel', 'Eggs', 'Porridge'];
         this.$scope.$on('$destroy', this.disconnect.bind(this));
     }
 
@@ -15,7 +22,7 @@ export default class mainController {
     }
 
     connect() {
-        return this.Socket.connect();
+        return this.Socket.connect(this.currentUser);
     }
 
     disconnect() {
