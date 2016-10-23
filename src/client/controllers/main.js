@@ -1,19 +1,25 @@
 export default class mainController {
-    constructor(Socket) {
+    constructor(Socket, $scope) {
         'ngInject';
+
         this.Socket = Socket;
-        this.Socket.connect().then(()=> {
-            this.currentPage = 'home';
-            this.users = this.Socket.users;
-        });
-        console.log(this.users)
+        this.$scope = $scope;
+
+        // this.Socket.connect();
+        this.users = this.Socket.data.users;
+        this.$scope.$on('$destroy', this.disconnect.bind(this));
     }
 
-    isConnected(){
-        return this.Socket.isConnected;
+    isConnected() {
+        return this.Socket.data.isConnected;
     }
 
-    getUsers(){
-        return this.Socket.users;
+    connect() {
+        return this.Socket.connect();
     }
+
+    disconnect() {
+        return this.Socket.disconnect();
+    }
+
 }
