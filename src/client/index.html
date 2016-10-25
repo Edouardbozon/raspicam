@@ -64,6 +64,9 @@
                     </md-card-content>
                 </md-card>
             </section>
+            <div ng-if="main.isConnected()">
+                <img ng-src="main.streamUrl" alt="Stream" />
+            </div>
             <md-list flex ng-if="main.isConnected()">
                 <md-subheader class="md-no-sticky">
                     <strong>{{ main.users.length }} viewers</strong>

@@ -32,6 +32,7 @@ export default class Socket {
         this.socket.on('connect', this.onConnect.bind(this));
         this.socket.on('users:list', this.onUsersList.bind(this));
         this.socket.on('user:connect', this.onUserConnect.bind(this));
+        this.socket.on('liveStream', this.onLiveStream.bind(this));
         this.socket.on('user:disconnect', this.ontUserDisconnect.bind(this));
     }
 
@@ -62,6 +63,12 @@ export default class Socket {
             }
             this.$rootScope.$apply();
         }
+    }
+
+    onLiveStream(url) {
+        console.log(url);
+        this.data.streamUrl = url;
+        this.$rootScope.$apply();
     }
 
     disconnect() {
