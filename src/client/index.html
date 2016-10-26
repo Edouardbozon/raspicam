@@ -64,8 +64,9 @@
                     </md-card-content>
                 </md-card>
             </section>
-            <div ng-if="main.isConnected()">
-                <img ng-src="{{ main.streamUrl }}" alt="Stream" />
+            <div ng-if="main.isConnected()" layout="row" layout-align="space-around">
+                <md-progress-circular ng-if="!main.streamUrl" class="md-hue-2" md-diameter="14px"></md-progress-circular>
+                <img ng-src="{{ main.streamUrl }}" ng-if="main.streamUrl" class="img-responsive" alt="Stream" />
             </div>
             <md-list flex ng-if="main.isConnected()">
                 <md-subheader class="md-no-sticky">

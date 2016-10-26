@@ -19,7 +19,7 @@ export default class Socket {
     }
 
     connect(user) {
-        this.socket = io(ADDRESS + ':' + PORT, {
+        this.socket = io(ADDRESS + ':' + 3000, {
             query: this.$httpParamSerializer(user)
         });
         this.data.user = user;
