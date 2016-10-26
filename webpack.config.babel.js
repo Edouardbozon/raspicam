@@ -60,8 +60,8 @@ webpackConfig.module = {
  */
 webpackConfig.module.preLoaders = [
     {
-        test: /\.js$/, 
-        loader: "eslint-loader", 
+        test: /\.js$/,
+        loader: "eslint-loader",
         exclude: /(node_modules|dist)/
     }
 ];
@@ -70,6 +70,12 @@ webpackConfig.module.preLoaders = [
  * Loaders
  */
 webpackConfig.module.loaders = [
+    // ng-Annotate
+    {
+        test: /.js$/,
+        loader: 'ng-annotate',
+        exclude: /(node_modules|dist)/
+    },
     // JavaScripts
 	{
 		test: /\.js?$/,
@@ -80,12 +86,6 @@ webpackConfig.module.loaders = [
 		  plugins: ['transform-runtime', 'transform-decorators-legacy', 'transform-class-properties'],
 		}
 	},
-    // ng-Annotate
-    {
-        test: /.js$/,
-        loader: 'ng-annotate',
-        exclude: /(node_modules|dist)/
-    },
     // SASS preprocess & postprocess
     {
         test: /\.scss$/,

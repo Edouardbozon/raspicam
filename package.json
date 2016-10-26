@@ -28,12 +28,14 @@
     "angular-aria": "^1.5.8",
     "angular-material": "^1.1.1",
     "angular-socket-io": "^0.7.0",
+    "babel-cli": "^6.18.0",
     "babel-polyfill": "^6.13.0",
     "babel-register": "^6.14.0",
     "babel-runtime": "^6.11.6",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "raspicam": "^0.2.13",
+    "socket.io": "^1.5.1",
     "socket.io-client": "^1.5.0"
   },
   "devDependencies": {

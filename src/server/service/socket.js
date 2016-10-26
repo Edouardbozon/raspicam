@@ -27,10 +27,11 @@ export default class SocketService {
 
         this.users.push(currentUser);
         this.bindSocketEvents(socket, currentUser);
-        this.startStream();
 
         console.log(`[INFO] User ${currentUser.name} is now connected.`);
         console.log(`[INFO] Total users:  ${this.users.length}`);
+
+        this.startStream();
 
         this.onDisconnect(socket, currentUser);
     }
@@ -64,11 +65,14 @@ export default class SocketService {
     }
 
     startStream() {
+        console.log('start stream...');
         if (this.app.get('watchingFile')) {
+            console.log('watching file yet, just emit stream...');
             this.io.sockets.emit('liveStream', `${this.fileName}.jpg?_t=` + (Math.random() * 100000));
             return;
         }
 
+        console.log('call raspistill process');
         const args = ["-w", "640", "-h", "480", "-o", this.streamPath, "-t", "999999999", "-tl", "100"];
         this.proc = this.spawn('raspistill', args);
 
@@ -77,6 +81,6 @@ export default class SocketService {
         this.app.set('watchingFile', true);
         fs.watchFile(this.streamPath, (current, previous) => {
             this.io.sockets.emit('liveStream', `${this.fileName}.jpg?_t=` + (Math.random() * 100000));
-        })
+        });
     }
 }
