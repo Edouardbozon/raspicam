@@ -13,7 +13,13 @@ export default class mainController {
         this.types = ['friend', 'voyerist', 'psychopath', 'criminal']; // user types
 
         this.users = this.Socket.data.users; // live users
-        this.streamUrl = this.Socket.data.streamUrl; // live users
+        this.streamUrl = this.Socket.streamUrl; // live users
+
+        this.$scope.$watch(() => this.Socket.streamUrl, (url) => {
+            console.log('Main Controller: ' + url);
+            this.streamUrl = this.Socket.streamUrl;
+        });
+        
         this.$scope.$on('$destroy', this.disconnect.bind(this));
     }
 

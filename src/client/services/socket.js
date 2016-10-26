@@ -67,7 +67,7 @@ export default class Socket {
 
     onLiveStream(url) {
         console.log(url);
-        this.data.streamUrl = url;
+        this.streamUrl = url;
         this.$rootScope.$apply();
     }
 
