@@ -5,6 +5,7 @@ import angular from 'angular';
 
 import 'angular-socket-io';
 import 'angular-material';
+import 'videogular';
 
 import Socket from './services/socket';
 import mainController from './controllers/main';
