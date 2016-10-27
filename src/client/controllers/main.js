@@ -1,11 +1,10 @@
 export default class mainController {
-    constructor(Socket, $scope, $log, $sce) {
+    constructor(Socket, $scope, $log) {
         'ngInject';
 
         this.Socket = Socket;
         this.$scope = $scope;
         this.$log = $log;
-        this.$sce = $sce;
 
         this.user = { // user's given informations
             id: null,
@@ -24,7 +23,7 @@ export default class mainController {
 
         this.streamConfig = {
                 sources: [
-                    { src: this.$sce.trustAsRessourceUrl(this.streamUrl), type: 'video/h264' }
+                    { src: this.streamUrl, type: 'video/h264' }
                 ]
         };
 
