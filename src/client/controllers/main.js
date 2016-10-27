@@ -1,9 +1,11 @@
 export default class mainController {
-    constructor(Socket, $scope) {
+    constructor(Socket, $scope, $log, $sce) {
         'ngInject';
 
         this.Socket = Socket;
         this.$scope = $scope;
+        this.$log = $log;
+        this.$sce = $sce;
 
         this.user = { // user's given informations
             id: null,
@@ -13,13 +15,19 @@ export default class mainController {
         this.types = ['friend', 'voyerist', 'psychopath', 'criminal']; // user types
 
         this.users = this.Socket.data.users; // live users
-        this.streamUrl = this.Socket.streamUrl; // live users
+        this.streamUrl = this.Socket.streamUrl; // strea url
 
         this.$scope.$watch(() => this.Socket.streamUrl, (url) => {
-            console.log('Main Controller: ' + url);
+            this.$log.info('Stream URL: ' + url);
             this.streamUrl = this.Socket.streamUrl;
         });
-        
+
+        this.streamConfig = {
+                sources: [
+                    { src: this.$sce.trustAsRessourceUrl(this.streamUrl), type: 'video/h264' }
+                ]
+        };
+
         this.$scope.$on('$destroy', this.disconnect.bind(this));
     }
 

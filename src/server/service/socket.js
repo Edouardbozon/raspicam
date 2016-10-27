@@ -1,20 +1,19 @@
 import fs from 'fs';
 import path from 'path';
+import raspivid from 'raspivid';
 
 export default class SocketService {
 
     constructor(io, app) {
         this.io = io;
         this.app = app;
-        this.spawn = require('child_process').spawn;
 
         this.users = [];
         this.sockets = {};
 
         this.io.on('connection', this.connection.bind(this));
-
         this.fileName = 'stream_n' + Date.now();
-        this.streamPath = path.resolve(__dirname, '../', '../', '../', 'dist', `${this.fileName}.jpg`);
+        this.streamPath = path.resolve(__dirname, '../', '../', '../', 'dist', `${this.fileName}.h264`);
     }
 
     connection(socket) {
@@ -27,11 +26,10 @@ export default class SocketService {
 
         this.users.push(currentUser);
         this.bindSocketEvents(socket, currentUser);
+        this.startStream();
 
         console.log(`[INFO] User ${currentUser.name} is now connected.`);
         console.log(`[INFO] Total users:  ${this.users.length}`);
-
-        this.startStream();
 
         this.onDisconnect(socket, currentUser);
     }
@@ -58,29 +56,22 @@ export default class SocketService {
             `);
             if (Object.keys(this.sockets).length === 0) {
                 this.app.set('watchingFile', false);
-                if (this.proc) this.proc.kill();
-                fs.unwatchFile(this.streamPath);
             }
         });
     }
 
     startStream() {
-        console.log('start stream...');
-        if (this.app.get('watchingFile')) {
-            console.log('watching file yet, just emit stream...');
-            this.io.sockets.emit('liveStream', `${this.fileName}.jpg?_t=` + (Math.random() * 100000));
-            return;
+        try {
+            const videoProcess = raspivid({
+                width: 640,
+                height: 480
+            });
+            const videoOutput = fs.createWriteStream(this.streamPath);
+            this.stream = videoProcess.pipe(videoOutput);
+            this.io.sockets.emit('liveStream', this.streamPath);
+            this.app.set('watchingFile', true);
+        } catch (e) {
+            console.log(e);
         }
-
-        console.log('call raspistill process');
-        const args = ["-w", "640", "-h", "480", "-o", this.streamPath, "-t", "999999999", "-tl", "100"];
-        this.proc = this.spawn('raspistill', args);
-
-        console.log('[INFO] Watching for changes...');
-
-        this.app.set('watchingFile', true);
-        fs.watchFile(this.streamPath, (current, previous) => {
-            this.io.sockets.emit('liveStream', `${this.fileName}.jpg?_t=` + (Math.random() * 100000));
-        });
     }
 }

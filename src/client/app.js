@@ -11,7 +11,8 @@ import mainController from './controllers/main';
 
 export default angular.module('Raspicam', [
         'btford.socket-io',
-        'ngMaterial'
+        'ngMaterial',
+        'com.2fdevs.videogular'
     ])
     .service('Socket', Socket)
     .controller('mainController', mainController);

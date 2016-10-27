@@ -19,7 +19,7 @@ export default class Socket {
     }
 
     connect(user) {
-        this.socket = io(ADDRESS + ':' + 3000, {
+        this.socket = io(ADDRESS + ':' + PORT, {
             query: this.$httpParamSerializer(user)
         });
         this.data.user = user;
@@ -66,7 +66,6 @@ export default class Socket {
     }
 
     onLiveStream(url) {
-        console.log(url);
         this.streamUrl = url;
         this.$rootScope.$apply();
     }
