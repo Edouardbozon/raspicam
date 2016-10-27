@@ -65,8 +65,8 @@
                 </md-card>
             </section>
             <div ng-if="main.isConnected()" layout="row">
-                <videogular vg-theme="main.streamConfig.theme">
-                    <vg-media vg-src="main.streamConfig.sources" vg-type="main.streamConfig.type"></vg-media>
+                <videogular>
+                    <vg-media vg-src="main.streamUrl" vg-type="h/264"></vg-media>
                 </videogular>
             </div>
             <md-list flex ng-if="main.isConnected()">

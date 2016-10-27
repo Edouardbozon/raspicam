@@ -21,12 +21,6 @@ export default class mainController {
             this.streamUrl = this.Socket.streamUrl;
         });
 
-        this.streamConfig = {
-                sources: [
-                    { src: this.streamUrl, type: 'video/h264' }
-                ]
-        };
-
         this.$scope.$on('$destroy', this.disconnect.bind(this));
     }
 
